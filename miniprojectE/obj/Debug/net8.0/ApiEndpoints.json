@@ -1,0 +1,1159 @@
+[
+  {
+    "ContainingType": "miniprojectE.Controllers.AddressController",
+    "Method": "CreateAddress",
+    "RelativePath": "api/Address/CreateAddress/{userId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.AddressDTOs.CreateAddressDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.AddressDTOs.AddressDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.AddressController",
+    "Method": "DeleteAddress",
+    "RelativePath": "api/Address/DeleteAddress/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.AddressController",
+    "Method": "GetUserAddresses",
+    "RelativePath": "api/Address/GetUserAddresses/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.AddressDTOs.AddressDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.AddressController",
+    "Method": "UpdateAddress",
+    "RelativePath": "api/Address/UpdateAddress/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.AddressDTOs.CreateAddressDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.AddressDTOs.AddressDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "GetCompatibility",
+    "RelativePath": "api/Component/{id}/GetCompatibility",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentCompatibilityDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "AdjustStock",
+    "RelativePath": "api/Component/{id}/stock",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.StockDTOs.StockAdjustmentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "CreateCompatibility",
+    "RelativePath": "api/Component/CreateCompatibility",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.ComponentDTOs.CreateCompatibilityDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentCompatibilityDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "CreateComponent",
+    "RelativePath": "api/Component/CreateComponent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.ComponentDTOs.CreateComponentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "GetAllComponents",
+    "RelativePath": "api/Component/GetAllComponents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "GetComponent",
+    "RelativePath": "api/Component/GetComponent/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "GetComponents",
+    "RelativePath": "api/Component/GetComponentsByType",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "componentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "lowStockOnly",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.CalculationResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "UpdateComponent",
+    "RelativePath": "api/Component/UpdateComponent/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.ComponentDTOs.UpdateComponentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.ComponentDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ComponentController",
+    "Method": "ValidateComponents",
+    "RelativePath": "api/Component/validate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "miniprojectE.DTO.ValidationDTO.ComponentValidationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ValidationDTOs.ValidationResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "AssignClerk",
+    "RelativePath": "api/Orders/{id}/AssignClerk",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.OrderDTOs.AssignClerkDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "CompleteOrder",
+    "RelativePath": "api/Orders/{id}/complete",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "CompleteAssembly",
+    "RelativePath": "api/Orders/{id}/CompleteAssembly",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "ShipOrder",
+    "RelativePath": "api/Orders/{id}/ship",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "StartAssembly",
+    "RelativePath": "api/Orders/{id}/StartAssembly",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "UpdateOrderStatus",
+    "RelativePath": "api/Orders/{id}/status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.OrderDTOs.UpdateOrderStatusDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "CancelOrder",
+    "RelativePath": "api/Orders/CancelOrder/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/Orders/CreateOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.OrderDTOs.CreateOrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "GetAllOrders",
+    "RelativePath": "api/Orders/GetAllOrders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "GetCustomerOrders",
+    "RelativePath": "api/Orders/GetCustomerOrders/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.CalculationResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "GetOrder",
+    "RelativePath": "api/Orders/GetOrder/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.OrdersController",
+    "Method": "GetOrders",
+    "RelativePath": "api/Orders/GetOrders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "customerId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "clerkId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.CalculationResponseDTO\u00601[[miniprojectE.DTO.OrderDTOs.OrderDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ReportsController",
+    "Method": "GetComponentUsageHistory",
+    "RelativePath": "api/Reports/GetComponentUsageHistory/{componentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "componentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "months",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.ReportingDTOs.ComponentPopularityDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ReportsController",
+    "Method": "GetLowStockReport",
+    "RelativePath": "api/Reports/GetLowStockReport",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.StockDTOs.StockLevelDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ReportsController",
+    "Method": "GetPopularityReport",
+    "RelativePath": "api/Reports/GetPopularityReport",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "month",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ReportingDTOs.PopularityReportDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ReportsController",
+    "Method": "GetSalesReport",
+    "RelativePath": "api/Reports/GetSalesReport",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "startDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "endDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ReportingDTOs.SalesReportDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.ReportsController",
+    "Method": "GetStockReport",
+    "RelativePath": "api/Reports/GetStockReport",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ReportingDTOs.StockReportDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.TemplateController",
+    "Method": "AddTemplateComponent",
+    "RelativePath": "api/Template/{id}/AddTemplateComponent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.ComponentDTOs.CreateTemplateComponentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.TemplateComponentDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.TemplateController",
+    "Method": "RemoveTemplateComponent",
+    "RelativePath": "api/Template/{templateId}/components/{componentId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "templateId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "componentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.TemplateController",
+    "Method": "CreateTemplate",
+    "RelativePath": "api/Template/CreateTemplate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.ComponentDTOs.CreateTemplateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.FurnitureDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.TemplateController",
+    "Method": "GetAllTemplates",
+    "RelativePath": "api/Template/GetAllTemplates",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.ComponentDTOs.FurnitureDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.TemplateController",
+    "Method": "GetTemplate",
+    "RelativePath": "api/Template/GetTemplate/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.ComponentDTOs.FurnitureDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.TemplateController",
+    "Method": "GetTemplates",
+    "RelativePath": "api/Template/GetTemplates",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "furnitureType",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.ComponentDTOs.FurnitureDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.UserController",
+    "Method": "GetProfile",
+    "RelativePath": "api/User/GetProfile/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.UserDTOs.UserProfileDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.UserController",
+    "Method": "GetUsersByRoleAsync",
+    "RelativePath": "api/User/GetProfileByType/{type}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.Collections.Generic.List\u00601[[miniprojectE.DTO.UserDTOs.UserProfileDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.UserController",
+    "Method": "Login",
+    "RelativePath": "api/User/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.UserDTOs.UserLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.UserController",
+    "Method": "Register",
+    "RelativePath": "api/User/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.UserDTOs.UserRegistrationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.UserDTOs.UserProfileDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.UserController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/User/UpdateProfile/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "miniprojectE.DTO.UserDTOs.UserUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "miniprojectE.DTO.ResponseDTOs.ApiResponseDTO\u00601[[miniprojectE.DTO.UserDTOs.UserProfileDTO, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "miniprojectE.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[miniprojectE.WeatherForecast, miniprojectE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]
