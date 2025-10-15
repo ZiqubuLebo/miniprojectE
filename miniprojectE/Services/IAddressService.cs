@@ -8,6 +8,6 @@ namespace miniprojectE.Services
         public Task<AddressDTO> GetAddressAsync(int addressId);
         public Task<AddressDTO> CreateAddressAsync(Guid userId, CreateAddressDTO dto);
         public Task<AddressDTO> UpdateAddressAsync(int addressId, CreateAddressDTO dto);
-        public Task DeleteAddressAsync(int addressId);
+        public Task<bool> DeleteAddressAsync(int addressId);
     }
 }

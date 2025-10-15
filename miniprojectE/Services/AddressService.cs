@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace miniprojectE.Services
 {
-    public class AddressService: IAddressService
+    public class AddressService : IAddressService
     {
         private readonly AppDB _context;
 
@@ -22,20 +22,20 @@ namespace miniprojectE.Services
 
             var address = await query.Select(a =>
                 new AddressDTO
-            {
+                {
                     AddressID = a.AddressID,
                     City = a.City,
                     Code = a.Code,
                     Country = a.Country,
                     Province = a.Province,
                     Street = a.Street,
-            }).ToListAsync();
+                }).ToListAsync();
 
             return address;
         }
         public async Task<AddressDTO> GetAddressAsync(int addressId)
         {
-            var query =await _context.Address.FirstOrDefaultAsync(a => a.AddressID == addressId);
+            var query = await _context.Address.FirstOrDefaultAsync(a => a.AddressID == addressId);
 
             if (query == null)
                 throw new NotFoundException("Address not found");
@@ -83,6 +83,32 @@ namespace miniprojectE.Services
 
             return await GetAddressAsync(addressId);
         }
-        public Task DeleteAddressAsync(int addressId) => throw new NotImplementedException();
+        public async Task<bool> DeleteAddressAsync(int addressId)
+        {
+            try
+            {
+                var address = await _context.Address
+                    .FirstOrDefaultAsync(t => t.AddressID == addressId);
+
+                if (address == null)
+                    throw new NotFoundException("Template");
+
+              
+
+                // Remove the template
+                _context.Address.Remove(address);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (!(ex is NotFoundException))
+                {
+
+                }
+                throw;
+            }
+        }
     }
 }

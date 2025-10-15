@@ -11,12 +11,10 @@ namespace miniprojectE.Services
     public class ReportService: IReportService
     {
         private readonly AppDB _context;
-        private readonly ILogger<ReportService> _logger;
 
-        public ReportService(AppDB context, ILogger<ReportService> logger)
+        public ReportService(AppDB context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task<StockReportDTO> GetStockReportAsync()
@@ -57,14 +55,10 @@ namespace miniprojectE.Services
                     GeneratedAt = DateTime.UtcNow
                 };
 
-                _logger.LogInformation("Stock report generated: {TotalComponents} total, {LowStockCount} low stock",
-                    report.TotalComponents, report.LowStockCount);
-
                 return report;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error generating stock report");
                 throw;
             }
         }
@@ -94,13 +88,10 @@ namespace miniprojectE.Services
                     })
                     .ToListAsync();
 
-                _logger.LogInformation("Retrieved {Count} low stock components", lowStockComponents.Count);
-
                 return lowStockComponents;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error getting low stock components");
                 throw;
             }
         }
@@ -190,14 +181,10 @@ namespace miniprojectE.Services
                     GeneratedAt = DateTime.UtcNow
                 };
 
-                _logger.LogInformation("Popularity report generated for {Year}-{Month}: {ComponentCount} components, ${TotalRevenue} revenue",
-                    year, month, componentPopularity.Count, report.TotalRevenue);
-
                 return report;
             }
             catch (Exception ex) when (!(ex is ValidationException))
             {
-                _logger.LogError(ex, "Error generating popularity report for {Year}-{Month}", year, month);
                 throw;
             }
         }
@@ -282,15 +269,11 @@ namespace miniprojectE.Services
                     TopComponents = componentStats
                 };
 
-                _logger.LogInformation("Sales report generated for {StartDate} to {EndDate}: {TotalOrders} orders, ${TotalRevenue} revenue",
-                    startDate.ToShortDateString(), endDate.ToShortDateString(), totalOrders, totalRevenue);
-
                 return report;
             }
             catch (Exception ex) when (!(ex is ValidationException))
             {
-                _logger.LogError(ex, "Error generating sales report for {StartDate} to {EndDate}", startDate, endDate);
-                throw;
+               throw;
             }
         }
 
@@ -330,15 +313,11 @@ namespace miniprojectE.Services
                     })
                     .ToListAsync();
 
-                _logger.LogInformation("Component usage history retrieved for component {ComponentId}: {MonthCount} months",
-                    componentId, usageHistory.Count);
-
                 return usageHistory;
             }
             catch (Exception ex) when (!(ex is NotFoundException) && !(ex is ValidationException))
             {
-                _logger.LogError(ex, "Error getting component usage history for component {ComponentId}", componentId);
-                throw;
+               throw;
             }
         }
 
@@ -365,12 +344,10 @@ namespace miniprojectE.Services
                     }
                     await GeneratePopularityDataForPeriodAsync(previousYear, previousMonth);
                 }
-
-                _logger.LogInformation("Monthly popularity data generated successfully for {Year}-{Month}", currentYear, currentMonth);
             }
+
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error generating monthly popularity data");
                 throw;
             }
         }
@@ -426,13 +403,10 @@ namespace miniprojectE.Services
                     await _context.SaveChangesAsync();
                 }
 
-                _logger.LogInformation("Generated popularity data for {Year}-{Month}: {ComponentCount} components",
-                    year, month, componentStats.Count);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error generating popularity data for {Year}-{Month}", year, month);
-                throw;
+              throw;
             }
         }
     }

@@ -19,50 +19,6 @@ namespace miniprojectE.Services
             _context = context;
         }
 
-        public async Task<CalculationResponseDTO<ComponentDTO>> GetComponentsAsync(int page, int pageSize, ComponentType? type, bool? lowStockOnly)
-        {
-            var query = _context.Component.Where(c => c.IsActive);
-
-            if (type.HasValue)
-                query = query.Where(c => c.Type == type.Value);
-
-            if (lowStockOnly == true)
-                query = query.Where(c => c.Level <= c.MinimumLevel);
-
-            var totalCount = await query.CountAsync();
-            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
-
-            var components = await query
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .Select(c => new ComponentDTO
-                {
-                    ComponentId = c.ComponentID,
-                    ComponentName = c.Name,
-                    Description = c.Description,
-                    UnitPrice = c.UnitPrice,
-                    StockQuantity = c.Level,
-                    MinimumStockLevel = c.MinimumLevel,
-                    ComponentType = c.Type,
-                    //Sku = c.Sku,
-                    ImageUrl = c.Image,
-                    IsActive = c.IsActive,
-                    IsLowStock = c.Level <= c.MinimumLevel
-                })
-                .ToListAsync();
-
-            return new CalculationResponseDTO<ComponentDTO>
-            {
-                Data = components,
-                TotalCount = totalCount,
-                PageNumber = page,
-                PageSize = pageSize,
-                TotalPages = totalPages,
-                HasNextPage = page < totalPages,
-                HasPreviousPage = page > 1
-            };
-        }
-
         public async Task<ComponentDTO> GetComponentAsync(int componentId)
         {
             var component = await _context.Component
@@ -86,8 +42,6 @@ namespace miniprojectE.Services
                 IsLowStock = component.Level <= component.MinimumLevel
             };
         }
-
-        private readonly ILogger<ComponentService> _logger;
 
         public async Task<ComponentDTO> CreateComponentAsync(CreateComponentDTO dto, Guid userId)
         {
@@ -129,8 +83,6 @@ namespace miniprojectE.Services
                 await _context.SaveChangesAsync();
             }
 
-            _logger.LogInformation("Component created successfully: {ComponentName} ", dto.ComponentName);
-
             return await GetComponentAsync(component.ComponentID);
         }
 
@@ -149,8 +101,6 @@ namespace miniprojectE.Services
             component.UpdatedAt = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
-
-            //_logger.LogInformation("Component updated successfully: {ComponentId} - {ComponentName}", componentId, dto.Name);
 
             return await GetComponentAsync(componentId);
         }
@@ -209,7 +159,6 @@ namespace miniprojectE.Services
             return components;
         }
 
-        // Implement other methods...
         public async Task<List<ComponentCompatibilityDTO>> GetComponentCompatibilityAsync(int componentId)
         {
             try
@@ -243,7 +192,6 @@ namespace miniprojectE.Services
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error getting compatibility for component {ComponentId}", componentId);
                 throw;
             }
         }
@@ -272,10 +220,6 @@ namespace miniprojectE.Services
                         (cc.ComponentID1 == dto.ComponentAId && cc.ComponentID2 == dto.ComponentBId) ||
                         (cc.ComponentID1 == dto.ComponentBId && cc.ComponentID2 == dto.ComponentAId));
 
-                if (existingRule != null)
-                {
-                    //throw new DuplicateResourceException("Compatibility Rule", $"{dto.ComponentAId}-{dto.ComponentBId}");
-                }
 
                 var compatibility = new ComponentCompatibility
                 {
@@ -288,9 +232,6 @@ namespace miniprojectE.Services
 
                 _context.ComponentCompatibility.Add(compatibility);
                 await _context.SaveChangesAsync();
-
-               // _logger.LogInformation("Compatibility rule created: {ComponentAId} <-> {ComponentBId} = {IsCompatible}",
-                  //  dto.ComponentAId, dto.ComponentBId, dto.IsCompatible);
 
                 return new ComponentCompatibilityDTO
                 {
@@ -308,19 +249,8 @@ namespace miniprojectE.Services
             }
             catch (Exception ex) when (!(ex is NotFoundException) && !(ex is ValidationException))
             {
-                _logger.LogError(ex, "Error creating compatibility rule between {ComponentAId} and {ComponentBId}", dto.ComponentAId, dto.ComponentBId);
                 throw;
             }
-        }
-
-        public async Task<ValidationResponseDTO> ValidateComponentsAsync(List<CreateItemComponentDTO> components)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<ComponentDTO>> SearchComponentsAsync(ComponentSearchDTO searchDto)
-        {
-            throw new NotImplementedException();
         }
     }
 }
