@@ -24,7 +24,6 @@ namespace miniprojectE.Controllers
         {
             try
             {
-                //calls user service register user and gets back the profile registered
                 var result = await _userService.RegisterUserAsync(dto);
                 return Ok(new ApiResponseDTO<UserProfileDTO> { Success = true, Data = result });
             }

@@ -22,24 +22,6 @@ namespace miniprojectE.Controllers
             _componentService = componentService;
         }
 
-        [HttpGet("GetComponentsByType")]
-        public async Task<ActionResult<CalculationResponseDTO<ComponentDTO>>> GetComponents(
-            [FromQuery] int page = 1,
-            [FromQuery] int pageSize = 50,
-            [FromQuery] ComponentType? componentType = null,
-            [FromQuery] bool? lowStockOnly = null)
-        {
-            try
-            {
-                var result = await _componentService.GetComponentsAsync(page, pageSize, componentType, lowStockOnly);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new CalculationResponseDTO<ComponentDTO> { Data = new List<ComponentDTO>() });
-            }
-        }
-
         [HttpGet("GetComponent/{id}")]
         public async Task<ActionResult<ApiResponseDTO<ComponentDTO>>> GetComponent(int id)
         {

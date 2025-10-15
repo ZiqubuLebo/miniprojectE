@@ -21,26 +21,6 @@ namespace miniprojectE.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet("GetOrders")]
-        //[Authorize(Roles = "Clerk,Manager,Admin")]
-        public async Task<ActionResult<CalculationResponseDTO<OrderDTO>>> GetOrders(
-            [FromQuery] int page = 1,
-            [FromQuery] int pageSize = 20,
-            [FromQuery] OrderStatus? status = null,
-            [FromQuery] Guid? customerId = null,
-            [FromQuery] Guid? clerkId = null)
-        {
-            try
-            {
-                var result = await _orderService.GetOrdersAsync(page, pageSize, status, customerId, clerkId);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new CalculationResponseDTO<OrderDTO>());
-            }
-        }
-
         [HttpGet("GetOrder/{id}")]
         public async Task<ActionResult<ApiResponseDTO<OrderDTO>>> GetOrder(int id)
         {
@@ -56,17 +36,17 @@ namespace miniprojectE.Controllers
         }
 
         [HttpGet("GetCustomerOrders/{customerId}")]
-        public async Task<ActionResult<CalculationResponseDTO<OrderDTO>>> GetCustomerOrders(
+        public async Task<ActionResult<ApiResponseDTO<List<OrderDTO>>>> GetCustomerOrders(
             Guid customerId)
         {
             try
             {
                 var result = await _orderService.GetCustomerOrdersAsync(customerId);
-                return Ok(result);
+                return Ok(new ApiResponseDTO<List<OrderDTO>> { Success = true, Data = result });
             }
             catch (Exception ex)
             {
-                return BadRequest(new CalculationResponseDTO<OrderDTO>());
+                return BadRequest(new ApiResponseDTO<List<OrderDTO>>());
             }
         }
 

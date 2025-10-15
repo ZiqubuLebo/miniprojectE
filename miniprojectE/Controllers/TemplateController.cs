@@ -48,7 +48,6 @@ namespace miniprojectE.Controllers
         }
 
         [HttpPost("CreateTemplate")]
-        //[Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<ApiResponseDTO<FurnitureDTO>>> CreateTemplate([FromBody] CreateTemplateDTO dto)
         {
             try
@@ -64,7 +63,6 @@ namespace miniprojectE.Controllers
         }
 
         [HttpPost("{id}/AddTemplateComponent")]
-        //[Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<ApiResponseDTO<TemplateComponentDTO>>> AddTemplateComponent(int id, [FromBody] CreateTemplateComponentDTO dto)
         {
             try
@@ -79,7 +77,6 @@ namespace miniprojectE.Controllers
         }
 
         [HttpDelete("{templateId}/components/{componentId}")]
-        //[Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<ApiResponseDTO<bool>>> RemoveTemplateComponent(int templateId, int componentId)
         {
             try
