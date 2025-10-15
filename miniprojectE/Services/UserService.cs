@@ -32,6 +32,7 @@ namespace miniprojectE.Services
                 // Hash password
                 var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
+                //create new user
                 var user = new Users
                 {
                     UserEmail = dto.UserEmail,
@@ -47,7 +48,7 @@ namespace miniprojectE.Services
 
                 _context.User.Add(user);
                 await _context.SaveChangesAsync();
-
+                //return new user
                 return new UserProfileDTO
                 {
                     UserId = user.UserID,
@@ -62,14 +63,17 @@ namespace miniprojectE.Services
 
             public async Task<(string Token, UserProfileDTO user)> LoginAsync(UserLoginDTO dto)
             {
+            //check if user exists
                 var user = await _context.User
                     .FirstOrDefaultAsync(u => u.UserEmail == dto.UserEmail && u.IsActive);
 
+            //if user does not exist
                 if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
                 {
                     throw new UnauthorizedAccessException("Invalid email or password");
                 }
 
+                //get user information
             var userdto = new UserProfileDTO
             {
                 UserId = user.UserID,
@@ -92,12 +96,13 @@ namespace miniprojectE.Services
                 }).ToList(),
             };
 
-                // Generate JWT token
+                // return jwt token and user information
                 return (GenerateJwtToken(user), userdto);
             }
 
             public async Task<UserProfileDTO> GetUserProfileAsync(Guid userId)
             {
+            //check if user exists
                 var user = await _context.User
                     .Include(u => u.Addresses)
                     .FirstOrDefaultAsync(u => u.UserID == userId);
@@ -107,6 +112,7 @@ namespace miniprojectE.Services
                     throw new NotFoundException("User not found");
                 }
 
+                //return user information
                 return new UserProfileDTO
                 {
                     UserId = user.UserID,
@@ -132,12 +138,14 @@ namespace miniprojectE.Services
 
             public async Task<UserProfileDTO> UpdateUserAsync(Guid userId, UserUpdateDTO dto)
             {
+            //check if user exists
                 var user = await _context.User.FindAsync(userId);
                 if (user == null)
                 {
-                    //throw new NotFoundException("User not found");
+                    throw new NotFoundException("User not found");
                 }
 
+                //update user information
                 user.Name = dto.FirstName;
                 user.LastName = dto.LastName;
                 user.Phone = dto.Phone;
@@ -145,11 +153,13 @@ namespace miniprojectE.Services
 
                 await _context.SaveChangesAsync();
 
+            //return user information (updated)
                 return await GetUserProfileAsync(userId);
             }
 
             public async Task<List<UserProfileDTO>> GetUsersByRoleAsync(UserType userType)
             {
+            //search for all users with specified usertype
                 var users = await _context.User
                     .Where(u => u.Role == userType && u.IsActive)
                     .Select(u => new UserProfileDTO
@@ -164,11 +174,13 @@ namespace miniprojectE.Services
                     })
                     .ToListAsync();
 
+            //return users
                 return users;
             }
 
             private string GenerateJwtToken(Users user)
             {
+            //generate jwt token for authorisation
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
                 var tokenDescriptor = new SecurityTokenDescriptor
