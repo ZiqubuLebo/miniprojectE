@@ -5,112 +5,18 @@ using miniprojectE.DTO.ComponentDTOs;
 using miniprojectE.DTO.OrderDTOs;
 using miniprojectE.DTO.ResponseDTOs;
 using miniprojectE.Models.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace miniprojectE.Services
 {
     public class OrderService: IOrderService
     {
         private readonly AppDB _context;
-        private readonly ILogger<OrderService> _logger;
-        private readonly IInventoryService _inventoryService;
-        public OrderService(AppDB context, ILogger<OrderService> logger, IInventoryService inventoryService)
+        public OrderService(AppDB context, ILogger<OrderService> logger)
         {
             _context = context;
-            _logger = logger;
-            _inventoryService = inventoryService;
         }
 
-        public async Task<CalculationResponseDTO<OrderDTO>> GetOrdersAsync(int page, int pageSize, OrderStatus? status, Guid? customerId, Guid? clerkId)
-        {
-            try
-            {
-                var query = _context.Order
-                    .Include(o => o.Customer)
-                    .Include(o => o.Clerk)
-                    .Include(o => o.ShippingAddress)
-                    .Include(o => o.CustomFurnitureItems)
-                    .AsQueryable();
-
-                // Apply filters
-                if (status.HasValue)
-                    query = query.Where(o => o.OrderStatus == status.Value);
-
-                if (customerId.HasValue)
-                    query = query.Where(o => o.CustomerID == customerId.Value);
-
-                if (clerkId.HasValue)
-                    query = query.Where(o => o.ClerkID == clerkId.Value);
-
-                // Get total count
-                var totalCount = await query.CountAsync();
-                var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
-
-                // Get paginated orders
-                var orders = await query
-                    .OrderByDescending(o => o.CreatedAt)
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .Select(o => new OrderDTO
-                    {
-                        OrderId = o.OrderID,
-                        OrderNumber = o.OrderNumber,
-                        CustomerId = o.CustomerID,
-                        CustomerName = $"{o.Customer.Name} {o.Customer.LastName}",
-                        CustomerEmail = o.Customer.UserEmail,
-                        AssignedClerkId = o.ClerkID,
-                        AssignedClerkName = o.Clerk != null ? $"{o.Clerk.Name} {o.Clerk.LastName}" : null,
-                        OrderStatus = o.OrderStatus,
-                        Subtotal = o.Subtotal,
-                        ShippingCost = o.ShippingCost,
-                        TotalAmount = o.TotalAmount,
-                        ShippingAddress = new AddressDTO
-                        {
-                            AddressID = o.ShippingAddress.AddressID,
-                            Street = o.ShippingAddress.Street,
-                            City = o.ShippingAddress.City,
-                            Province = o.ShippingAddress.Province,
-                            Code = o.ShippingAddress.Code,
-                            Country = o.ShippingAddress.Country,
-                        },
-                 
-                        SpecialInstructions = o.SpecialInstructions,
-                        OrderDate = o.OrderDate,
-                        ExpectedCompletionDate = o.ExpectedCompletionDate,
-                        CompletedDate = o.CompletedDate,
-                        Items = o.CustomFurnitureItems.Select(item => new CustomFurnitureItemDTO
-                        {
-                            ItemId = item.OrderItemID,
-                            TemplateId = item.TemplateID,
-                            TemplateName = item.Template.Name,
-                            FurnitureType = item.Template.FurnitureType,
-                            ItemName = item.ItemName,
-                            CustomDescription = item.ItemDescription,
-                            ItemTotalPrice = item.ItemTotalPrice,
-                            Quantity = (int)item.Quantity,
-                            AssemblyStatus = item.AssemblyStatus,
-                            AssemblyStartedAt = item.AssemblyStartedAt,
-                            AssemblyCompletedAt = item.AssemblyCompletedAt
-                        }).ToList()
-                    })
-                    .ToListAsync();
-
-                return new CalculationResponseDTO<OrderDTO>
-                {
-                    Data = orders,
-                    TotalCount = totalCount,
-                    PageNumber = page,
-                    PageSize = pageSize,
-                    TotalPages = totalPages,
-                    HasNextPage = page < totalPages,
-                    HasPreviousPage = page > 1
-                };
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting orders with filters - Status: {Status}, CustomerId: {CustomerId}, ClerkId: {ClerkId}", status, customerId, clerkId);
-                throw;
-            }
-        }
         public async Task<OrderDTO> GetOrderAsync(int orderId)
         {
             try
@@ -183,11 +89,10 @@ namespace miniprojectE.Services
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error getting order {OrderId}", orderId);
                 throw;
             }
         }
-        public async Task<CalculationResponseDTO<OrderDTO>> GetCustomerOrdersAsync(Guid customerId)
+        public async Task<List<OrderDTO>> GetCustomerOrdersAsync(Guid customerId)
         {
             try
             {
@@ -198,11 +103,63 @@ namespace miniprojectE.Services
                     throw new NotFoundException("Customer");
                 }
 
-                return await GetOrdersAsync(1, 10, null, customerId, null);
+                var query = _context.Order
+                    .Include(o => o.CustomerID == customerId)
+                    .Include(o => o.Clerk)
+                    .Include(o => o.ShippingAddress)
+                    .Include(o => o.CustomFurnitureItems);
+                    
+
+                var orders = await query
+                    .OrderByDescending(o => o.CreatedAt)
+                    .Select(o => new OrderDTO
+                    {
+                        OrderId = o.OrderID,
+                        OrderNumber = o.OrderNumber,
+                        CustomerId = o.CustomerID,
+                        CustomerName = $"{o.Customer.Name} {o.Customer.LastName}",
+                        CustomerEmail = o.Customer.UserEmail,
+                        AssignedClerkId = o.ClerkID,
+                        AssignedClerkName = o.Clerk != null ? $"{o.Clerk.Name} {o.Clerk.LastName}" : null,
+                        OrderStatus = o.OrderStatus,
+                        Subtotal = o.Subtotal,
+                        ShippingCost = o.ShippingCost,
+                        TotalAmount = o.TotalAmount,
+                        ShippingAddress = new AddressDTO
+                        {
+                            AddressID = o.ShippingAddress.AddressID,
+                            Street = o.ShippingAddress.Street,
+                            City = o.ShippingAddress.City,
+                            Province = o.ShippingAddress.Province,
+                            Code = o.ShippingAddress.Code,
+                            Country = o.ShippingAddress.Country,
+                        },
+
+                        SpecialInstructions = o.SpecialInstructions,
+                        OrderDate = o.OrderDate,
+                        ExpectedCompletionDate = o.ExpectedCompletionDate,
+                        CompletedDate = o.CompletedDate,
+                        Items = o.CustomFurnitureItems.Select(item => new CustomFurnitureItemDTO
+                        {
+                            ItemId = item.OrderItemID,
+                            TemplateId = item.TemplateID,
+                            TemplateName = item.Template.Name,
+                            FurnitureType = item.Template.FurnitureType,
+                            ItemName = item.ItemName,
+                            CustomDescription = item.ItemDescription,
+                            ItemTotalPrice = item.ItemTotalPrice,
+                            Quantity = (int)item.Quantity,
+                            AssemblyStatus = item.AssemblyStatus,
+                            AssemblyStartedAt = item.AssemblyStartedAt,
+                            AssemblyCompletedAt = item.AssemblyCompletedAt
+                        }).ToList()
+                    })
+                    .ToListAsync();
+
+                return orders;
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error getting orders for customer {CustomerId}", customerId);
                 throw;
             }
         }
@@ -329,14 +286,11 @@ namespace miniprojectE.Services
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                _logger.LogInformation("Order {OrderNumber} created successfully for customer {CustomerId}", orderNumber, order.CustomerID);
-
                 return await GetOrderAsync(order.OrderID);
             }
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex, "Error creating order");
                 throw;
             }
         }
@@ -348,12 +302,6 @@ namespace miniprojectE.Services
                 if (order == null)
                 {
                     throw new NotFoundException("Order");
-                }
-
-                // Validate status transition
-                if (!IsValidStatusTransition(order.OrderStatus, dto.NewStatus))
-                {
-                    //throw new InvalidOrderStatusTransitionException(order.OrderStatus, dto.NewStatus);
                 }
 
                 var oldStatus = order.OrderStatus;
@@ -380,13 +328,10 @@ namespace miniprojectE.Services
                 _context.OrderHistoryLog.Add(historyLog);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Order {OrderId} status updated from {OldStatus} to {NewStatus}", orderId, oldStatus, dto.NewStatus);
-
                 return await GetOrderAsync(orderId);
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error updating order status for order {OrderId}", orderId);
                 throw;
             }
         }
@@ -424,13 +369,10 @@ namespace miniprojectE.Services
                 _context.OrderHistoryLog.Add(historyLog);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Order {OrderId} assigned to clerk {ClerkId}", orderId, clerkId);
-
                 return await GetOrderAsync(orderId);
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error assigning clerk to order {OrderId}", orderId);
                 throw;
             }
         }
@@ -445,11 +387,6 @@ namespace miniprojectE.Services
                 if (order == null)
                 {
                     throw new NotFoundException("Order");
-                }
-
-                if (order.OrderStatus != OrderStatus.Confirmed)
-                {
-                    //throw new InvalidOrderStatusTransitionException(order.OrderStatus, OrderStatus.Assembling);
                 }
 
                 order.OrderStatus = OrderStatus.Assembling;
@@ -467,13 +404,10 @@ namespace miniprojectE.Services
 
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Assembly started for order {OrderId}", orderId);
-
                 return await GetOrderAsync(orderId);
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error starting assembly for order {OrderId}", orderId);
                 throw;
             }
         }
@@ -488,11 +422,6 @@ namespace miniprojectE.Services
                 if (order == null)
                 {
                     throw new NotFoundException("Order");
-                }
-
-                if (order.OrderStatus != OrderStatus.Assembling)
-                {
-                    //throw new InvalidOrderStatusTransitionException(order.OrderStatus, OrderStatus.Assembled);
                 }
 
                 // Complete assembly for all items
@@ -510,13 +439,10 @@ namespace miniprojectE.Services
 
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Assembly completed for order {OrderId}", orderId);
-
                 return await GetOrderAsync(orderId);
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error completing assembly for order {OrderId}", orderId);
                 throw;
             }
         }
@@ -530,23 +456,15 @@ namespace miniprojectE.Services
                     throw new NotFoundException("Order");
                 }
 
-                if (order.OrderStatus != OrderStatus.Assembled)
-                {
-                    //throw new InvalidOrderStatusTransitionException(order.OrderStatus, OrderStatus.Shipped);
-                }
-
                 order.OrderStatus = OrderStatus.Shipped;
                 order.UpdatedAt = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Order {OrderId} shipped", orderId);
-
                 return await GetOrderAsync(orderId);
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error shipping order {OrderId}", orderId);
                 throw;
             }
         }
@@ -560,24 +478,16 @@ namespace miniprojectE.Services
                     throw new NotFoundException("Order");
                 }
 
-                if (order.OrderStatus != OrderStatus.Shipped && order.OrderStatus != OrderStatus.Delivered)
-                {
-                    //throw new InvalidOrderStatusTransitionException(order.OrderStatus, OrderStatus.Completed);
-                }
-
                 order.OrderStatus = OrderStatus.Completed;
                 order.CompletedDate = DateTime.UtcNow;
                 order.UpdatedAt = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("Order {OrderId} completed", orderId);
-
                 return await GetOrderAsync(orderId);
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error completing order {OrderId}", orderId);
                 throw;
             }
         }
@@ -594,11 +504,6 @@ namespace miniprojectE.Services
                 if (order == null)
                 {
                     throw new NotFoundException("Order");
-                }
-
-                if (order.OrderStatus == OrderStatus.Completed || order.OrderStatus == OrderStatus.Shipped)
-                {
-                   // throw new InvalidOrderStatusTransitionException(order.OrderStatus, OrderStatus.Cancelled);
                 }
 
                 // Return stock for all components
@@ -636,13 +541,10 @@ namespace miniprojectE.Services
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
-
-                _logger.LogInformation("Order {OrderId} cancelled and stock returned", orderId);
-            }
+}
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
-                _logger.LogError(ex, "Error cancelling order {OrderId}", orderId);
                 throw;
             }
         }
@@ -699,18 +601,18 @@ namespace miniprojectE.Services
                 }
 
                 calculation.Subtotal = subtotal;
-                calculation.ShippingCost = subtotal > 500 ? 0 : 50; // Free shipping over $500
+                calculation.ShippingCost = subtotal > 500 ? 0 : 50; // Free shipping over R500
                 calculation.TotalAmount = calculation.Subtotal + calculation.ShippingCost;
 
                 return calculation;
             }
             catch (Exception ex) when (!(ex is NotFoundException))
             {
-                _logger.LogError(ex, "Error calculating order price");
-                throw;
+               throw;
             }
         }
 
+        //helper method to generate order number
         private async Task<string> GenerateOrderNumberAsync()
         {
             var today = DateTime.UtcNow;
@@ -734,27 +636,12 @@ namespace miniprojectE.Services
             return $"{prefix}{nextNumber:D4}";
         }
 
+        //helper method to calculate expected completion date
         private DateTime? CalculateExpectedCompletion(List<CreateCustomFurnitureItemDTO> items)
         {
-            // Simple calculation: 2 days per item + 3 days base processing
+            // 2 days per item + 3 days base processing
             var estimatedDays = 3 + (items.Count * 2);
             return DateTime.UtcNow.AddDays(estimatedDays);
-        }
-
-        private bool IsValidStatusTransition(OrderStatus from, OrderStatus to)
-        {
-            return from switch
-            {
-                OrderStatus.Pending => to == OrderStatus.Confirmed || to == OrderStatus.Cancelled,
-                OrderStatus.Confirmed => to == OrderStatus.Assembling || to == OrderStatus.Cancelled,
-                OrderStatus.Assembling => to == OrderStatus.Assembled || to == OrderStatus.Cancelled,
-                OrderStatus.Assembled => to == OrderStatus.Shipped || to == OrderStatus.Cancelled,
-                OrderStatus.Shipped => to == OrderStatus.Delivered || to == OrderStatus.Completed,
-                OrderStatus.Delivered => to == OrderStatus.Completed,
-                OrderStatus.Completed => false, // Cannot transition from completed
-                OrderStatus.Cancelled => false, // Cannot transition from cancelled
-                _ => false
-            };
         }
 
         public async Task<List<OrderHistoryLog>> GetOrderHistoryAsync(int orderId)
@@ -771,7 +658,6 @@ namespace miniprojectE.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error getting order history for order {OrderId}", orderId);
                 throw;
             }
         }
@@ -787,7 +673,7 @@ namespace miniprojectE.Services
                     .Include(o => o.CustomFurnitureItems)
                     .AsQueryable();
                 
-                // Get paginated orders
+                // 
                 var orders = await query
                     .OrderByDescending(o => o.CreatedAt)
                     .Select(o => new OrderDTO

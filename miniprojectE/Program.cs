@@ -115,16 +115,6 @@ builder.Services.AddScoped<ITemplateService, TemplateService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 builder.Services.AddScoped<IReportService, ReportService>();
-builder.Services.AddScoped<IInventoryService, InventoryService>();
-//builder.Services.AddScoped<IDashboardService, DashboardService>();
-//builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
-//builder.Services.AddScoped<IOrderTrackingService, OrderTrackingService>();
-//builder.Services.AddScoped<ICustomizationService, CustomizationService>();
-builder.Services.AddScoped<INotificationService, NotificationService>();
-//builder.Services.AddScoped<IBulkOperationsService, BulkOperationsService>();
-builder.Services.AddScoped<IImportExportService, ImportExportService>();
-//builder.Services.AddScoped<ICacheService, CacheService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
 
 //builder.Services.AddAutoMapper(typeof(Program));
 
@@ -247,11 +237,8 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IComponentService, ComponentService>();
 builder.Services.AddScoped<ITemplateService, TemplateService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
 builder.Services.AddScoped<IReportService, ReportService>();
-builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
-builder.Services.AddScoped<IImportExportService, ImportExportService>();
 
 var app = builder.Build();
 
@@ -262,7 +249,7 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-//  Move HTTPS redirect after CORS (important for mobile testing)
+//  
 app.UseCors("ReactNativePolicy");
 
 //app.UseHttpsRedirection();
